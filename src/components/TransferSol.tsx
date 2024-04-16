@@ -2,6 +2,8 @@ import { clusterApiUrl, Connection, PublicKey, RpcResponseAndContext, SignatureR
 import { FC, useEffect, useRef, useState } from 'react';
 import { PhantomProvider } from './ConnectWallet';
 
+import './style.css'; 
+
 interface ITransferSolProps {
     provider: PhantomProvider;
 }
@@ -81,19 +83,21 @@ const TransferSol: FC<ITransferSolProps> = (props) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>Enter address of destination</label><br/>
-            <input type="text" value={destAddr} onChange={handleChangeAddr}/><br/>
-            <label>Amount of lamports</label><br/>
-            <input type="number" value={lamports} onChange={handleChangeLamp}/><br/>
-            <input type="submit" value="Send lamports"/>
-            <hr/>
-            <p>My Balance: {myBalance} lamports</p>
-            <p>Recipient Balance: {rxBalance} lamports</p>
-            <hr/>
-            { txid ? <p>Transaction id: <span style={{fontSize: '0.7em'}}>{txid}</span></p> : null }
+        <div className="transfer-container">
+            <form className="transfer-form" onSubmit={handleSubmit}>
+                <label>Enter address of destination:</label><br/>
+                <input className="input-field" type="text" value={destAddr} onChange={handleChangeAddr}/><br/>
+                <label>Amount of lamports:</label><br/>
+                <input className="input-field" type="number" value={lamports} onChange={handleChangeLamp}/><br/>
+                <input className="submit-button" type="submit" value="Send lamports"/>
+            </form>
+            <div className="balance-info">
+                <p>My Balance: {myBalance} lamports</p>
+                <p>Recipient Balance: {rxBalance} lamports</p>
+            </div>
+            { txid ? <p>Transaction id: <span className="tx-id">{txid}</span></p> : null }
             { slot ? <p>Confirmation slot: {slot}</p> : null }
-        </form>
+        </div>
     );
 
 }
