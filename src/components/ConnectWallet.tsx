@@ -24,7 +24,7 @@ import TransferSol from './TransferSol';
  * 
  * @interface PhantomProvider
  */
-interface PhantomProvider {
+export interface PhantomProvider {
     connect: (opts?: Partial<ConnectOpts>) => Promise<{ publicKey: PublicKey }>;
     disconnect: () => Promise<void>;
     on: (event: PhantomEvent, callback: (args: any) => void) => void;
@@ -148,7 +148,7 @@ const ConnectWallet: FC = () => {
         <div>
             {walletAvail ?
                 <>
-                    <button disabled={connected} onClick={connectHandler}>Connect to Wallet</button>
+                    <button disabled={connected} onClick={connectHandler} id="connect_button" className="button-9">Connect to Wallet</button>
                     <button disabled={!connected} onClick={disconnectHandler}>Disconnect from Phantom</button>
                     <hr />
                     {connected && provider ? <TransferSol provider={provider} /> : null}
