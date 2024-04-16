@@ -2,6 +2,8 @@ import { PublicKey, Transaction } from "@solana/web3.js";
 import { FC, useEffect, useState } from "react";
 import TransferSol from './TransferSol';
 
+import './style.css'; 
+
 
 /**
  * PhantomProvider Interface
@@ -145,17 +147,18 @@ const ConnectWallet: FC = () => {
 
     // Render UI based on wallet availability and connection status
     return (
-        <div>
-            {walletAvail ?
+        <div className="container">
+            { walletAvail ?
                 <>
-                    <button disabled={connected} onClick={connectHandler} id="connect_button" className="button-9">Connect to Wallet</button>
-                    <button disabled={!connected} onClick={disconnectHandler}>Disconnect from Phantom</button>
-                    <hr />
-                    {connected && provider ? <TransferSol provider={provider} /> : null}
+                <button className={`connect-button ${connected ? 'connected' : ''}`} onClick={connected ? disconnectHandler : connectHandler}>
+                    { connected ? 'Disconnect from Phantom' : 'Connect to Wallet' }
+                </button>
+                <hr/>
+                { connected && provider ? <TransferSol provider={provider} /> : null }
                 </>
-                :
+            :
                 <>
-                    <p>Oops!!! Phantom is not available. Go get it <a href="https://phantom.app/">here</a>.</p>
+                <p>Opps!!! Phantom is not available. Go get it <a href="https://phantom.app/">here</a>.</p>
                 </>
             }
         </div>
